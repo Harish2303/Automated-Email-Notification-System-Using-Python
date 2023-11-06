@@ -1,0 +1,74 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+# Function to send emails
+def send_email(subject, message, from_email, from_password, to_emails):
+    # Set up the SMTP server
+    smtp_server = 'smtp.gmail.com'  # Change this according to your email provider
+    smtp_port = 587  # Change this according to your email provider
+
+    # Create the email message
+    msg = MIMEMultipart()
+    msg['From'] = 'Harish <' + from_email + '>'
+    msg['To'] = ', '.join(to_emails)
+    msg['Subject'] = subject
+
+    # Add message body
+    email_content = f'''
+    Ram Ram and Hello,
+
+    I hope this email finds you well.
+    I want to apologize as I couldn't provide additional passes at the moment as they are expired. However, I'm sharing a free pack of courses from Coursera X Google Cloud that you can redeem by visiting the link below;
+
+    Course Link: https://www.coursera.org/promo/googlecloud-training-promotion
+
+    Steps to redeem the course:
+    Step 1: Select the tile below to "Prepare for Google Cloud certification with Google Cloud Professional Certificates."
+    Step 2: Click on the course tile.
+    Step 3: Click on "Enroll/Start Learning."
+    Step 4: Choose the 1-month option.
+    Step 5: Get access to the course.
+
+    I'll share more passes as soon as I receive them. Thank you for your understanding.
+    
+    Best regards,
+    Harish Bonde
+
+
+    Social Media Profiles:
+    Connect with me on Linkedin:
+    https://www.linkedin.com/in/harish-bonde-00b68a250
+    Follow me on Instagram:
+    https://instagram.com/hariish_23?igshid=MzRlODBiNWFlZA==
+    
+    **This is a computerized mail, preferably don't reply to it.**
+    '''
+
+    msg.attach(MIMEText(email_content, 'plain'))
+
+    # Connect to the SMTP server and send the email
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(from_email, from_password)
+        server.sendmail(from_email, to_emails, msg.as_string())
+        server.quit()
+        print("Email sent successfully")
+    except Exception as e:
+        print(f"Email could not be sent. Error: {str(e)}")
+
+# Email configuration and sending the email
+your_email = 'Sending email'  # Replace with your email
+your_password = 'Password'  # Replace with your email password
+recipient_emails = [Receiving email]  # List of recipient email addresses
+subject_line = 'Subject'  # Replace with your email subject
+
+# Send the email
+send_email(
+    subject_line,
+    'Your Message Here',
+    your_email,
+    your_password,
+    recipient_emails,
+)
